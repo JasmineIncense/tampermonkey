@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         comic左右翻页阅读器爬虫
+// @name         まんが王国扒图爬虫
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  comic漫画网 tamper油猴脚本 左右翻页阅读器爬虫
+// @description  まんが王国漫画网 tamper油猴脚本 左右翻页阅读器爬虫
 // @author       zero_degree@foxmail.com
 // @match        https://comic.k-manga.jp/viewer/pc/viewer.html?*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=dlsite.com
