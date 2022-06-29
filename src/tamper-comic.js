@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         comic下拉式阅读器爬虫
+// @name         comic左右翻页阅读器爬虫
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  comic漫画网 tamper油猴脚本 左右翻页阅读器爬虫
@@ -26,11 +26,11 @@ const base64ImgtoFile = (dataurl, filename = "file") => {
   });
 }
 // 自动点击下一页
-const onNext = () => {
-  const btn = document.getElementById('page-nav')
-  btn.click()
-  run()
-}
+// const onNext = () => {
+//   const btn = document.getElementById('page-nav')
+//   btn.click()
+//   run()
+// }
 
 // 文件命名计数
 let count = 1
@@ -67,6 +67,6 @@ const run = () => {
 (function() {
   'use strict';
 
-  run()
   // Your code here...
+  run()
 })();
