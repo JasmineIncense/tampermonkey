@@ -45,7 +45,7 @@ const run = () => {
       console.log(imgUrl);
 
       const download = document.createElement('a');
-      download.setAttribute('download', count);
+      download.setAttribute('download', `${count}.jpeg`);
       download.href = imgUrl;
       download.click();
       count++

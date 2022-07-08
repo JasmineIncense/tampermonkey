@@ -21,16 +21,16 @@ const run = () => {
       return
     }
     if (nodes.length <= 2 ) {
-      node = nodes[1] // 取第二个节点数据
-    } else {
       node = nodes[0] // 首页，取第一个节点数据
+    } else {
+      node = nodes[1] // 取第二个节点数据
     }
     const imgs = node.getElementsByTagName('img')
     Array.prototype.map.call(imgs, (item) => {
       const imgUrl = item.src
 
       const download = document.createElement('a');
-      download.setAttribute('download', count);
+      download.setAttribute('download', `${count}.jpeg`);
       download.href = imgUrl;
       download.click();
       count++
