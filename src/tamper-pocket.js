@@ -13,33 +13,41 @@
 
 // 文件命名计数
 let count = 1
-const down = async(imgUrl) => {
-  const fileStream = await axios.get(imgUrl, {
-    responseType: 'blob',
-    withCredentials: false
+const down = (imgUrl) => {
+  // 开启延时解决谷歌同时并发下载任务数不能超过10
+  return new Promise(resolve => {
+    setTimeout(async() => {
+      // 使用axios下载文件，解决图片跨域下载问题
+      const fileStream = await axios.get(imgUrl, {
+        responseType: 'blob',
+        withCredentials: false
+      })
+      if (!fileStream) {
+        return false;
+      }
+      const url = URL.createObjectURL(fileStream.data);
+      console.log(count, url)
+      const aLink = document.createElement('a');
+      aLink.href = url;
+      aLink.setAttribute('download',count);
+      aLink.click();
+      URL.revokeObjectURL(url);
+    
+      count++
+      resolve()
+    }, 1000)
   })
-  if (!fileStream) {
-    return false;
-  }
-  const url = URL.createObjectURL(fileStream.data);
-  const aLink = document.createElement('a');
-  aLink.href = url;
-  aLink.setAttribute('download',count);
-  aLink.click();
-  URL.revokeObjectURL(url);
-
-  count++
 }
 const run = () => {
-  setTimeout(() => {
+  setTimeout(async() => {
     const nodes = document.getElementsByClassName('wrap-canvas')
 
-    Array.prototype.map.call(nodes, (item) => {
-      const style = item.currentStyle || window.getComputedStyle(item, false)
+    for (let node of nodes) {
+      const style = node.currentStyle || window.getComputedStyle(node, false)
       const imgUrl = style.backgroundImage.slice(4, -1).replace(/"/g, "")
-      down(imgUrl)
-    })
-  }, 12000)
+      await down(imgUrl)
+    }
+  }, 10000)
 }
 
 (function() {
