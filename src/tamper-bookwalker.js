@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name         まんが王国扒图爬虫
+// @name         bookwalker扒图爬虫
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  まんが王国漫画网 tamper油猴脚本 左右翻页阅读器爬虫
+// @description  bookwalker漫画网 tamper油猴脚本 左右翻页阅读器爬虫
 // @author       zero_degree@foxmail.com
-// @match        https://comic.k-manga.jp/viewer/pc/viewer.html?*
+// @match        https://viewer.bookwalker.jp/*/viewer.html?*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=dlsite.com
 // @grant        none
 // ==/UserScript==
@@ -30,15 +30,10 @@ const base64ImgtoFile = (dataurl, filename = "file") => {
 let count = 1
 const run = () => {
   setTimeout(() => {
-    const content = document.getElementById('viewport')
+    const content = document.querySelector('div.currentScreen')
     const nodes = content.getElementsByTagName('canvas')
-    const arr = []
 
-    if (nodes.length > 0) {
-      arr.push(nodes[0])
-      nodes[1] && arr.push(nodes[1])
-    }
-    arr.map((canvas) => {
+    Array.prototype.map.call(nodes, (canvas) => {
       const dataURL = canvas.toDataURL();
 
       const file = base64ImgtoFile(dataURL); // 得到File对象
@@ -47,9 +42,8 @@ const run = () => {
         window.URL.createObjectURL(file);
       console.log(imgUrl);
 
-      //  window.open(imgUrl)
       const download = document.createElement('a');
-      download.setAttribute('download', count);
+      download.setAttribute('download', `${count}.jpeg`);
       download.href = imgUrl;
       download.click();
       count++
