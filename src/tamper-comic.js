@@ -36,7 +36,7 @@ const run = () => {
 
     if (nodes.length > 0) {
       arr.push(nodes[0])
-      nodes[1] && arr.push(nodes[1])
+      count !== 1 && nodes[1] && arr.push(nodes[1])
     }
     arr.map((canvas) => {
       const dataURL = canvas.toDataURL();
@@ -49,7 +49,7 @@ const run = () => {
 
       //  window.open(imgUrl)
       const download = document.createElement('a');
-      download.setAttribute('download', count);
+      download.setAttribute('download', count > 9 ? `0${count}.jpeg` : `00${count}.jpeg`);
       download.href = imgUrl;
       download.click();
       count++
